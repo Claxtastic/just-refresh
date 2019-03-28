@@ -1,14 +1,31 @@
-chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({color : '#3aa757'}, function() {
-            console.log("The color is green.");
-    });
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-        chrome.declarativeContent.onPageChanged.addRules([{
-          conditions: [new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: {hostEquals: 'developer.chrome.com'},
-          })
-          ],
-              actions: [new chrome.declarativeContent.ShowPageAction()]
-        }]);
-      });
-    });
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function reload(ms) {
+  var toggleOff = false;
+  chrome.tabs.query({ active: true, currentWindow: true }, async function(tabs) {
+    console.log('Waiting ' + ms + ' miliseconds for next refresh');
+    chrome.tabs.reload(tabs[0].id);
+    while (!toggleOff) 
+    {
+      await sleep(ms);
+      console.log(ms + ' miliseconds later');
+      chrome.browserAction.onClicked.addListener(function(tabs)
+        {
+          toggleOff = true;
+        });
+    }
+  });
+}
+
+chrome.browserAction.onClicked.addListener(function(tabs) 
+{
+  chrome.storage.sync.get({ minutes: '00', seconds: '30' }, function(settings) 
+  {
+    let minutes = settings.minutes;
+    let seconds = settings.seconds;
+    let ms = (settings.minutes / 1000) + (settings.seconds * 1000); 
+    reload(ms)
+  });
+});

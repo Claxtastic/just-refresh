@@ -1,23 +1,24 @@
+// TO-DO: cleanup input reading, pad 0's
+
 let button = document.getElementById('submit');
+let minuteField = document.getElementById('minuteField');
+let secondField = document.getElementById('secondField');
 
 chrome.storage.sync.get({ minutes: '00', seconds: '30' }, function(settings) 
 {
+    minuteField.setAttribute('placeholder', settings.minutes);
+    secondField.setAttribute('placeholder', settings.seconds);
     console.log('Current interval: ' + settings.minutes + ':' + settings.seconds);
 })
 
 button.addEventListener('click', function() 
 {
-    let minuteField = document.getElementById('minuteField').value;
-    let secondField = document.getElementById('secondField').value;
-
     if (minuteField == '') minuteField = '00';
     if (secondField == '') secondField = '30';
 
-    // definitely some work to do on handling input
-
-    chrome.storage.sync.set( { minutes: minuteField, seconds: secondField }, function() 
+    chrome.storage.sync.set( { minutes: minuteField.value, seconds: secondField.value }, function() 
     {
-        alert('Interval set to ' + minuteField + ':' + secondField);
-        console.log('minutes: ' + minuteField + ' seconds: ' + secondField);
+        alert('Interval set to ' + minuteField.value + ':' + secondField.value);
+        console.log('minutes: ' + minuteField.value + ' seconds: ' + secondField.value);
     });
 });
