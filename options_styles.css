@@ -1,9 +1,28 @@
-h1 {
-    text-align: center;
-    border: 2px; 
-    border-color: #f4df42;
+* {
+    font-family: "Open Sans", sans-serif;   
+    color: #333;
 }
 
-form {
+.body {
+    background-color:#EEEEEE;
+}
+
+.input-desc {
+    font-size: 15px;
+}
+
+.input {
+    width: 50px;
     text-align: center;
+}
+
+/* This is literally just for a single ':'; I know it's kinda ridiculous */
+.colon {
+    display:inline;
+    font-size: 15px
+}
+
+.submit {
+    font-family: "Open Sans", sans-serif;
+    cursor: pointer;
 }

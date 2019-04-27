@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html>
-    <head> <link rel="stylesheet" type="text/css" href="options_styles.css"> </head>
-    <body>
-        <h1> Input a new interval to refresh on </h1>
-            <form>
-                Interval (mm:ss): <br>
-                <input type="text" id="minuteField" placeholder="00"> : <input type="text" id="secondField" placeholder="30"> <br> <br>
-                <input type="submit" id="submit">
-            </form>
+<html lang="en-US">
+    <head> 
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title> Just Refresh Settings </title>
+        <link rel="stylesheet" type="text/css" href="options_styles.css" /> 
+    </head>
+    <header style="font-size:300%;"> Just Refresh Settings </header> <br>
+
+    <body class="body">
+        <form autocomplete="off" class="form">
+            <div class="input-desc"> Interval (mm:ss): </div>
+            <input type="text" id="minuteField" placeholder="00" class="input" /> 
+            <div class="colon">:</div> 
+            <input type="text" id="secondField" placeholder="30" class="input" /> <br> <br>
+            <input type="submit" id="submit" class="submit" /> 
+        </form>
     </body>
+
     <script src = "options.js"></script>
 </html>
