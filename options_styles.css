@@ -3,6 +3,10 @@
     color: #333;
 }
 
+.header {
+    font-size: 300%;
+}
+
 .body {
     background-color:#EEEEEE;
 }
@@ -23,6 +27,5 @@
 }
 
 .submit {
-    font-family: "Open Sans", sans-serif;
     cursor: pointer;
 }

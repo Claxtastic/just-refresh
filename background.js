@@ -3,8 +3,8 @@ let refreshers = {};
 // Clicked extension icon
 chrome.browserAction.onClicked.addListener(function(tab) 
 {
-  // Get stored interval; default to 00:30 if none
-  chrome.storage.sync.get({ minutes: '00', seconds: '30' }, function(settings) 
+  // Get stored interval; default to 01:00 if none
+  chrome.storage.sync.get({ minutes: '01', seconds: '00' }, function(settings) 
   {
     let ms = (settings.minutes * 60 * 1000) + (settings.seconds * 1000); 
     let strId = String(tab.id);
@@ -28,15 +28,33 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
   }
 });
 
+function getMMSS(ms) {
+  // create Date object for milliseconds, and return a nicely formatted mm:ss string
+  let date = new Date(ms);
+  var mm = String(date.getMinutes());
+  var ss = String(date.getSeconds());
+  if (date.getMinutes() < 10) {
+    // pad minutes < 10 with a 0
+    mm = '0' + mm;
+  } if (date.getSeconds() < 10) {
+    // pad seconds < 10 with a 0
+    ss = '0' + ss;
+  }
+  return mm + ':' + ss;
+}
+
 function createRefresher(refreshers, strId, ms) {
   // Get a readable version of the interval, as a string in seconds
+  // let totalSeconds = String(ms / 1000);
   let sec = String(ms / 1000);
 
   let refresh = setInterval(function() {
     if (refreshers[strId].tick > 0) {
       // Tab is at least one second away from refreshing; decrement the tick and set the badgeText
       sec = String(parseInt(refreshers[strId].tick--));
-      chrome.browserAction.setBadgeText({text: sec, tabId: parseInt(strId)});
+      var mmss = getMMSS(sec * 1000);
+
+      chrome.browserAction.setBadgeText({text: mmss, tabId: parseInt(strId)});
     } else {
       // Tab is ready to refresh; assign tick to the interval and refresh
       refreshers[strId].tick = refreshers[strId].interval;

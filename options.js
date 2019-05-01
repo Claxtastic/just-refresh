@@ -1,10 +1,8 @@
-// TO-DO: cleanup input reading, pad 0's
-
 let button = document.getElementById('submit');
 let minuteField = document.getElementById('minuteField');
 let secondField = document.getElementById('secondField');
 
-chrome.storage.sync.get({ minutes: '00', seconds: '30' }, function(settings) 
+chrome.storage.sync.get({ minutes: '01', seconds: '00' }, function(settings) 
 {
     minuteField.setAttribute('placeholder', settings.minutes);
     secondField.setAttribute('placeholder', settings.seconds);
@@ -13,8 +11,13 @@ chrome.storage.sync.get({ minutes: '00', seconds: '30' }, function(settings)
 
 button.addEventListener('click', function() 
 {
-    if (minuteField == '') minuteField = '00';
-    if (secondField == '') secondField = '30';
+    // check for blank inputs
+    if (minuteField.value == '') minuteField.value = '01';
+    if (secondField.value == '') secondField.value = '00';
+
+    // pad with 0's if single digit
+    if (minuteField.value.length < 2) minuteField.value = '0' + minuteField.value;
+    if (secondField.value.length < 2) secondField.value = '0' + secondField.value;
 
     chrome.storage.sync.set( { minutes: minuteField.value, seconds: secondField.value }, function() 
     {
