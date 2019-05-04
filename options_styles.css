@@ -1,31 +1,62 @@
 * {
-    font-family: "Open Sans", sans-serif;   
-    color: #333;
+    font-family: "Open Sans", sans-serif;  
 }
 
-.header {
+header {
+    color: #0ad8c4;
     font-size: 300%;
+    margin: auto;
+    width: 18%;
+    padding: 10px;
 }
 
-.body {
-    background-color:#EEEEEE;
+body {
+    /* background-color:#EEEEEE; */
+    background-color:#212121;
+}
+
+form {
+    color: #FFFFFF;
+    margin: auto;
+    width: 60%;
 }
 
 .input-desc {
     font-size: 15px;
+    margin: 0 auto;
+    text-align: center; 
 }
 
-.input {
+input {
     width: 50px;
     text-align: center;
+    padding: 10px;
+
+    /* Rounded corners */
+    border-radius: 5px;
+    border: 0;
+
+    margin: 0 auto;
 }
 
 /* This is literally just for a single ':'; I know it's kinda ridiculous */
 .colon {
-    display:inline;
+    display: inline;
     font-size: 15px
 }
 
-.submit {
+/* Submit button */
+input[type=submit] {
     cursor: pointer;
+
+    /* Rounded corners */
+    border-radius: 5px;
+    border: 0;
+
+    /* Keep it small */
+    width: 80px;
+    height: 35px;
+
+    /* Match icon background */
+    background: #0ad8c4;
 }
