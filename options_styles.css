@@ -1,11 +1,12 @@
 * {
     font-family: "Open Sans", sans-serif;  
+    margin: auto;
+    text-align: center;
 }
 
 header {
     color: #0ad8c4;
     font-size: 300%;
-    margin: auto;
     width: 18%;
     padding: 10px;
 }
@@ -15,34 +16,27 @@ body {
     background-color:#212121;
 }
 
-form {
-    color: #FFFFFF;
-    margin: auto;
-    width: 60%;
-}
-
 .input-desc {
+    color: #FFFFFF;
     font-size: 15px;
-    margin: 0 auto;
-    text-align: center; 
 }
 
 input {
     width: 50px;
-    text-align: center;
-    padding: 10px;
+    padding: 8px;
 
     /* Rounded corners */
     border-radius: 5px;
     border: 0;
-
-    margin: 0 auto;
 }
 
 /* This is literally just for a single ':'; I know it's kinda ridiculous */
 .colon {
+    color: #FFFFFF;
     display: inline;
-    font-size: 15px
+    font-size: 20px;
+    /* padding: 2px; */
+    /* margin-right: .5px; */
 }
 
 /* Submit button */
