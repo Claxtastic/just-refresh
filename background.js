@@ -3,18 +3,14 @@ let refreshers = {};
 // Clicked extension icon
 chrome.browserAction.onClicked.addListener(function(tab) 
 {
-  // Get stored interval; default to 01:00 if none
-  chrome.storage.sync.get({ minutes: '01', seconds: '00' }, function(settings) 
-  {
-    let ms = (settings.minutes * 60 * 1000) + (settings.seconds * 1000); 
-    let strId = String(tab.id);
-    if (refreshers.hasOwnProperty(strId)) {
-      // This tab is already has a refresher; remove it
-      deleteRefresher(refreshers, strId);
-    } else {
-      // This tab has no refresher; create one
-      createRefresher(refreshers, strId, ms);
-    }
+  createOrDeleteRefresher(String(tab.id));
+});
+
+// Command toggle keybind pressed
+chrome.commands.onCommand.addListener(function(command) {
+  // Because this is a command we don't have a tab as the callback parm, so query for active tab
+  chrome.tabs.query({active: true}, function(tabs) {
+    createOrDeleteRefresher(String(tabs[0].id));
   });
 });
 
@@ -27,6 +23,21 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
     console.log('Caught ' + typeError);
   }
 });
+
+function createOrDeleteRefresher(strId) {
+  // Get stored interval; default to 01:00 if none
+  chrome.storage.sync.get({ minutes: '01', seconds: '00' }, function(settings) 
+  {
+    let ms = (settings.minutes * 60 * 1000) + (settings.seconds * 1000); 
+    if (refreshers.hasOwnProperty(strId)) {
+      // This tab is already has a refresher; remove it
+      deleteRefresher(refreshers, strId);
+    } else {
+      // This tab has no refresher; create one
+      createRefresher(refreshers, strId, ms);
+    }
+  });
+}
 
 function getMMSS(ms) {
   // create Date object for milliseconds, and return a nicely formatted mm:ss string
@@ -54,7 +65,7 @@ function createRefresher(refreshers, strId, ms) {
       sec = String(parseInt(refreshers[strId].tick--));
       var mmss = getMMSS(sec * 1000);
 
-      chrome.browserAction.setBadgeText({text: mmss, tabId: parseInt(strId)});
+      chrome.browserAction.setBadgeText({text: mmss, tabId: Number(strId)});
     } else {
       // Tab is ready to refresh; assign tick to the interval and refresh
       refreshers[strId].tick = refreshers[strId].interval;

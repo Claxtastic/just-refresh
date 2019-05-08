@@ -5,6 +5,15 @@
     "options_page" : "options.html",
     "permissions" : ["activeTab", "storage"],
     "browser_action": {},
+    "commands" : {
+        "toggle-refresh" : {
+            "suggested_key" : {
+                "default" : "Alt+R",
+                "mac" : "Alt+R"
+            },
+            "description" : "Toggle refresh with keybind"
+        }
+    },
     "background" : {
         "scripts" : ["background.js"],
         "persistent" : false
