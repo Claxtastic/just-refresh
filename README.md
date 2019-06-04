@@ -4,6 +4,8 @@ A very simple auto-refresh extension for Google Chrome
 
 The intent was to keep things simple and minimal. 
 
+[Download the extension from the Chrome Web Store.](https://chrome.google.com/webstore/detail/just-refresh/pgaimkehoiabhliejchbnamlboniofpd "Just Refresh Store Page")
+
 ## Permissions required:
 
 ### activeTab
