@@ -13,9 +13,20 @@
             <div class="input-desc"> Interval (mm:ss): </div> <br>
             <input type="text" id="minuteField" placeholder="01" maxlength="2" /> 
             <div class="colon">:</div> 
-            <input type="text" id="secondField" placeholder="00" maxlength="2" /> <br> <br>
+            <input type="text" id="secondField" placeholder="00" maxlength="2" /> <br><br>
 
             <input type="submit" id="submit" /> 
+        </form> <br><br>
+
+        <div class="per-site"> Per-site settings </div>
+        <!-- TODO: check a match exact url flag -->
+        <form autocomplete="off">
+            <div class="input-desc" style="padding-right: 20px;"> Website:</div>
+            <div class="website-container" style="padding-right: 20px;display: inline;"><input type="url" class="website" placeholder="https://www.google.com" /></div>
+            <div class="input-desc" style="padding-right: 20px;"> Interval (mm:ss):</div>
+            <input type="text" id="minuteField" placeholder="01" maxlength="2" />
+            <div class="colon">:</div>
+            <input type="text" id="secondField" placeholder="00" maxlength="2" />
         </form>
     </body>
 

@@ -11,6 +11,12 @@ header {
     padding: 10px;
 }
 
+.per-site {
+    color: #0ad8c4;
+    font-size: 250%;
+    padding: 10px;
+}
+
 body {
     /* background-color:#EEEEEE; */
     background-color:#212121;
@@ -18,7 +24,24 @@ body {
 
 .input-desc {
     color: #FFFFFF;
-    font-size: 15px;
+    font-size: 18px;
+    display: inline;
+}
+
+.website {
+    width: 175px;
+
+    /* Rounded corners */
+    border-radius: 5px;
+    border: 0;
+}
+
+.per-site-field {
+    width: 50px;
+
+    /* Rounded corners */
+    border-radius: 5px;
+    border: 0;
 }
 
 input {
