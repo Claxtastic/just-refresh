@@ -77,3 +77,14 @@ input[type=submit] {
     /* Match icon background */
     background: #0ad8c4;
 }
+
+.add {
+    cursor: pointer;
+
+    /* Rounded corners */
+    border-radius: 5px;
+    border: 0;
+
+    /* Match icon background */
+    background: #0ad8c4;
+}
