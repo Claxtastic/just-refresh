@@ -15,7 +15,7 @@
         }
     },
     "background" : {
-        "scripts" : ["background.js"],
+        "scripts" : ["background.js", "jquery.min.js"],
         "persistent" : false
     },
     "icons": {
