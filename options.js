@@ -3,17 +3,21 @@ let addNewButton = document.getElementById('addNewSite')
 let minuteField = document.getElementById('minuteField')
 let secondField = document.getElementById('secondField')
 
-chrome.storage.sync.get({ minutes: '01', seconds: '00'}, function(settings) 
-{
+chrome.storage.sync.get({ minutes: '01', seconds: '00'}, settings => {
     minuteField.setAttribute('placeholder', settings.minutes)
     secondField.setAttribute('placeholder', settings.seconds)
     console.log('Current interval: ' + settings.minutes + ':' + settings.seconds)
-    chrome.storage.sync.get("perSiteSettings", function(value) {
+    chrome.storage.sync.get("perSiteSettings", value => {
+        if (value == undefined) {
+            // do none
+        } else {
+            // fill table of current site settings
+        }
         console.log('Retrieved per site stetings: ', value)
     })
 })
 
-submit.addEventListener('click', function() {
+submit.addEventListener('click', () => {
     // check for blank inputs
     if (minuteField.value == '') minuteField.value = '01'
     if (secondField.value == '') secondField.value = '00'
@@ -30,15 +34,14 @@ submit.addEventListener('click', function() {
         perSiteSettings[website] = { minutes: siteMinutes, seconds: siteSeconds }
     })
 
-    chrome.storage.sync.set({ minutes: minuteField.value, seconds: secondField.value, perSiteSettings: perSiteSettings }, function() 
-    {
+    chrome.storage.sync.set({ minutes: minuteField.value, seconds: secondField.value, perSiteSettings: perSiteSettings }, () => {
         alert('Interval set to ' + minuteField.value + ':' + secondField.value)
         console.log('minutes: ' + minuteField.value + ' seconds: ' + secondField.value)
         console.log("Persite map: ", perSiteSettings)
     })
 })
 
-addNewButton.addEventListener('click', function() {
+addNewButton.addEventListener('click', () => {
     let table = document.getElementById('per-site-table')
     let currentRow = table.insertRow(-1)
 

@@ -1,21 +1,20 @@
 let refreshers = {}
 
 // Clicked extension icon
-chrome.browserAction.onClicked.addListener(function(tab) 
-{
+chrome.browserAction.onClicked.addListener(tab => {
   createOrDeleteRefresher(String(tab.id))
 })
 
 // Command toggle keybind pressed
-chrome.commands.onCommand.addListener(function(command) {
+chrome.commands.onCommand.addListener(command => {
   // Because this is a command we don't have a tab as the callback parm, so query for active tab
-  chrome.tabs.query({active: true}, function(tabs) {
+  chrome.tabs.query({active: true, lastFocusedWindow: true, currentWindow: true}, tabs => {
     createOrDeleteRefresher(String(tabs[0].id))
   })
 })
 
 // Refreshing tab was closed remove it from refreshers
-chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
   try {
     clearInterval(refreshers[String(tabId)].refresh)
     delete refreshers[String(tabId)]
@@ -25,17 +24,35 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 })
 
 function createOrDeleteRefresher(strId) {
-  // Get stored interval default to 01:00 if none
-  chrome.storage.sync.get({ minutes: '01', seconds: '00' }, function(settings) 
-  {
-    let ms = (settings.minutes * 60 * 1000) + (settings.seconds * 1000) 
-    if (refreshers.hasOwnProperty(strId)) {
-      // This tab is already has a refresher remove it
-      deleteRefresher(refreshers, strId)
-    } else {
-      // This tab has no refresher create one
-      createRefresher(refreshers, strId, ms)
+  // if ID is already in refreshers list
+  if (strId in refreshers) {
+    // delete refresher a
+    deleteRefresher(refreshers, strId)
+    return
+  }
+  // else this tab has no refresher create one
+
+  var tabUrl = ""
+  chrome.tabs.query({active: true, lastFocusedWindow: true, currentWindow: true}, tabs => { tabUrl = tabs[0].url })
+
+  var perSiteSettings
+  chrome.storage.sync.get("perSiteSettings", perSiteObject => { perSiteSettings = perSiteObject })
+  
+  // Get stored interval; default to 01:00 if none
+  chrome.storage.sync.get({ minutes: '01', seconds: '00' }, settings => {
+    let minutes = settings.minutes
+    let seconds = settings.seconds
+      
+    if (perSiteSettings != undefined && tabUrl in perSiteSettings.perSiteSettings) {
+      let siteSettings = perSiteSettings.perSiteSettings[tabUrl]
+      // use those site specific settings
+      minutes = siteSettings.minutes
+      seconds = siteSettings.seconds
+      console.log(`Using site specific settings for url ${tabUrl}; ${minutes}:${seconds}`)
     }
+
+    let ms = (minutes * 60 * 1000) + (seconds * 1000) 
+    createRefresher(refreshers, strId, ms)
   })
 }
 
