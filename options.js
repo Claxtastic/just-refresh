@@ -52,6 +52,7 @@ addNewButton.addEventListener('click', () => {
     let minuteField = document.createElement('input')
     minuteField.setAttribute('class', 'siteMinuteField')
     minuteField.setAttribute('placeholder', '01')
+    minuteField.setAttribute('maxlength', 2)
 
     let colonElement = document.createElement('div')
     colonElement.innerHTML = ":"
@@ -60,6 +61,7 @@ addNewButton.addEventListener('click', () => {
     let secondField = document.createElement('input')
     secondField.setAttribute('class', 'siteSecondField')
     secondField.setAttribute('placeholder', '00')
+    secondField.setAttribute('maxlength', 2)
 
     let currentCell = currentRow.insertCell(-1)
     currentCell.appendChild(websiteField)
