@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head> 
+        <script src = "jquery.min.js"></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title> Just Refresh </title>
@@ -9,15 +10,24 @@
     <header> Just Refresh Settings </header> <br>
 
     <body>
-        <form autocomplete="off">
+        <form id="settingsForm" autocomplete="off">
             <div class="input-desc"> Interval (mm:ss): </div> <br>
             <input type="text" id="minuteField" placeholder="01" maxlength="2" /> 
             <div class="colon">:</div> 
-            <input type="text" id="secondField" placeholder="00" maxlength="2" /> <br> <br>
-
-            <input type="submit" id="submit" /> 
+            <input type="text" id="secondField" placeholder="00" maxlength="2" />
         </form>
     </body>
 
+    <div class="per-site"> Per-site settings </div>
+    <div class="tableContainer">
+        <table class="siteTable" id="per-site-table">
+            <tbody id="tbody">
+                <tr class="row">
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="image" src="/images/add.svg" class="add" id="addNewSite" /> <br> <br>
+    <input type="submit" id="submit" form="settingsForm" /> 
     <script src = "options.js"></script>
 </html>
