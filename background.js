@@ -19,7 +19,7 @@ chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
     clearInterval(refreshers[String(tabId)].refresh)
     delete refreshers[String(tabId)]
   } catch (typeError) {
-    console.log('Caught ' + typeError)
+    console.log(`Caught ${typeError}`)
   }
 })
 

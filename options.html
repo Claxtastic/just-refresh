@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head> 
+        <script src = "jquery.min.js"></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title> Just Refresh </title>
@@ -9,34 +10,24 @@
     <header> Just Refresh Settings </header> <br>
 
     <body>
-        <form autocomplete="off">
+        <form id="settingsForm" autocomplete="off">
             <div class="input-desc"> Interval (mm:ss): </div> <br>
             <input type="text" id="minuteField" placeholder="01" maxlength="2" /> 
             <div class="colon">:</div> 
-            <input type="text" id="secondField" placeholder="00" maxlength="2" /> <br><br>
+            <input type="text" id="secondField" placeholder="00" maxlength="2" />
+        </form>
+    </body>
 
-            <input type="submit" id="submit" /> 
-        </form> <br><br>
-
-        <div class="per-site"> Per-site settings </div>
+    <div class="per-site"> Per-site settings </div>
+    <div class="tableContainer">
         <table class="siteTable" id="per-site-table">
             <tbody id="tbody">
                 <tr class="row">
-                    <td><input type="text" class="website" placeholder="https://www.google.com"></td>
-                    <td><input type="text" class="siteMinuteField" id="siteMinuteField" placeholder="01" maxlength="2"/></td>
-                    <td><div class="colon">:</div></td>
-                    <td><input type="text" class="siteSecondField" id="siteSecondField" placeholder="00" maxlength="2"/></td>
                 </tr>
             </tbody>
         </table>
-        <button class="add" id="addNewSite">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-        </button>
-
-        <!-- TODO: check a match exact url flag -->
-        <!-- TODO: autofill form for global settings with the saved settings; on submit all settings are resynced. global submit button for both forms -->
-    </body>
-
+    </div>
+    <input type="image" src="/images/add.svg" class="add" id="addNewSite" /> <br> <br>
+    <input type="submit" id="submit" form="settingsForm" /> 
     <script src = "options.js"></script>
-    <script src = "jquery.min.js"></script>
 </html>

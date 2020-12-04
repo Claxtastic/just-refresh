@@ -85,6 +85,26 @@ input[type=submit] {
     border-radius: 5px;
     border: 0;
 
+    width: 1%;
+
     /* Match icon background */
     background: #0ad8c4;
+}
+
+.remove {
+    float: left;
+    cursor: pointer;
+
+    /* Rounded corners */
+    border-radius: 5px;
+    border: 0;
+
+    width: 13%;
+
+    /* Match icon background */
+    background: #0ad8c4;
+}
+
+.tableContainer {
+    margin-left: 5%;
 }
