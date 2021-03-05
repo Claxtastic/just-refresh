@@ -11,7 +11,6 @@ chrome.storage.sync.get("perSiteSettings", settings => {
         let firstRow = $('#tbody > tr').last()
         let siteSettings = settings.perSiteSettings[website]
 
-        console.log(siteSettings)
         $(firstRow).find(".matchAnyUrlCheckbox").prop("checked", siteSettings.matchAnyUrl)  
         $(firstRow).find(".website").val(website)
         $(firstRow).find(".siteMinuteField").val(siteSettings.minutes)

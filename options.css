@@ -11,15 +11,22 @@ header {
     padding: 10px;
 }
 
+body {
+    background-color:#212121;
+    position: relative;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+    text-align: center;
+}
+
 .per-site {
     color: #0ad8c4;
     font-size: 250%;
     padding: 10px;
-}
-
-body {
-    /* background-color:#EEEEEE; */
-    background-color:#212121;
 }
 
 .input-desc {
@@ -110,11 +117,18 @@ input[type=submit] {
 }
 
 .support {
-    position: absolute;
-    bottom: 0;
-    right: 45%;
-    height: 2.5rem;
-
-    color: #0ad8c4;
+    color: hotpink;
     font-size: 18px;
+}
+
+a:hover {
+    color: #0ad8c4;
+}
+
+a:visited {
+    color: #66ccff;
+}
+
+a:active {
+    color: #ff9933;
 }
