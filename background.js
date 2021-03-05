@@ -45,6 +45,15 @@ function createOrDeleteRefresher(strId) {
       
     if (perSiteSettings != undefined && tabUrl in perSiteSettings.perSiteSettings) {
       let siteSettings = perSiteSettings.perSiteSettings[tabUrl]
+
+      console.log(`Site settings: ${siteSettings}`)
+      if (siteSettings.matchUrl) {
+        console.log("match ")
+        const matches = tabUrl.match("^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)")
+        let domain = matches[1]
+        console.log(`domain: ${domain}`)
+      }
+
       // use those site specific settings
       minutes = siteSettings.minutes
       seconds = siteSettings.seconds
