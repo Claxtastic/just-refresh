@@ -108,3 +108,13 @@ input[type=submit] {
 .tableContainer {
     margin-left: 5%;
 }
+
+.support {
+    position: absolute;
+    bottom: 0;
+    right: 45%;
+    height: 2.5rem;
+
+    color: #0ad8c4;
+    font-size: 18px;
+}

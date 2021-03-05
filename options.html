@@ -16,18 +16,23 @@
             <div class="colon">:</div> 
             <input type="text" id="secondField" placeholder="00" maxlength="2" />
         </form>
+
+        <div class="per-site"> Per-URL settings </div>
+        <div class="tableContainer">
+            <table class="siteTable" id="per-site-table">
+                <tbody id="tbody">
+                    <tr class="row">
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <input type="image" src="/images/add.svg" class="add" id="addNewSite" /> <br> <br>
+        <input type="submit" id="submit" form="settingsForm" /> 
     </body>
 
-    <div class="per-site"> Per-site settings </div>
-    <div class="tableContainer">
-        <table class="siteTable" id="per-site-table">
-            <tbody id="tbody">
-                <tr class="row">
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <input type="image" src="/images/add.svg" class="add" id="addNewSite" /> <br> <br>
-    <input type="submit" id="submit" form="settingsForm" /> 
+    <footer>
+        <a class= "support" href="https://ko-fi.com/claxtastic">Say thanks and support me!</a>
+    </footer>
+
     <script src = "options.js"></script>
 </html>

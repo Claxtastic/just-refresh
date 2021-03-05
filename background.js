@@ -18,6 +18,7 @@ chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
   try {
     clearInterval(refreshers[String(tabId)].refresh)
     delete refreshers[String(tabId)]
+    console.log('Deleted refresher')
   } catch (typeError) {
     console.log(`Caught ${typeError}`)
   }
@@ -43,21 +44,27 @@ function createOrDeleteRefresher(strId) {
     let minutes = settings.minutes
     let seconds = settings.seconds
       
-    if (perSiteSettings != undefined && tabUrl in perSiteSettings.perSiteSettings) {
-      let siteSettings = perSiteSettings.perSiteSettings[tabUrl]
+    if (perSiteSettings != undefined) {
+      // check if exact tabUrl in settings first
+      if (tabUrl in perSiteSettings.perSiteSettings) {
+        let siteSettings = perSiteSettings.perSiteSettings[tabUrl]
 
-      console.log(`Site settings: ${siteSettings}`)
-      if (siteSettings.matchUrl) {
-        console.log("match ")
-        const matches = tabUrl.match("^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)")
-        let domain = matches[1]
-        console.log(`domain: ${domain}`)
+        // use those site specific settings
+        minutes = siteSettings.minutes
+        seconds = siteSettings.seconds
+        console.log(`Using url specific settings for url ${tabUrl}; ${minutes}:${seconds}`) 
       }
+      // then check if tabUrl's domain in settings
+      else if (matchDomain(tabUrl) in perSiteSettings.perSiteSettings) {
+        let siteSettings = perSiteSettings.perSiteSettings[matchDomain(tabUrl)]
 
-      // use those site specific settings
-      minutes = siteSettings.minutes
-      seconds = siteSettings.seconds
-      console.log(`Using site specific settings for url ${tabUrl}; ${minutes}:${seconds}`)
+        if (siteSettings.matchAnyUrl) {
+          // user applied custom settings for this domain, use them
+          minutes = siteSettings.minutes
+          seconds = siteSettings.seconds
+          console.log(`Using domain specific settings for url ${tabUrl}; ${minutes}:${seconds}`)
+        }
+      } 
     }
 
     let ms = (minutes * 60 * 1000) + (seconds * 1000) 
@@ -113,4 +120,11 @@ function deleteRefresher(refreshers, strId) {
   // Stop refresh loop
   clearInterval(refreshers[strId].refresh)
   delete refreshers[strId]
+}
+
+function matchDomain(url) {
+  const matches = url.match("^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)")
+
+  if (matches) return matches[1]
+  else return ""
 }

@@ -43,6 +43,12 @@ submit.addEventListener('click', () => {
     let website = $(this).find(".website").val()
     if (website != "") {
       let matchAnyUrl = $(this).find(".matchAnyUrlCheckbox").prop("checked")
+
+      if (matchAnyUrl) {
+        // trim the URL provided to be just the domain
+        website = matchDomain(website)
+      }
+
       let siteMinutes = $(this).find(".siteMinuteField").val()
       let siteSeconds = $(this).find(".siteSecondField").val()
       
@@ -122,4 +128,11 @@ function createRow(rowIndex) {
 
 function removeRow(removeButton) {
   $(removeButton).closest("tr").remove()
+}
+
+function matchDomain(url) {
+  const matches = url.match("^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)")
+
+  if (matches) return matches[1]
+  else return ""
 }
